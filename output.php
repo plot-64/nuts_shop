@@ -1,0 +1,22 @@
+<?php
+
+use function Adminer\table;
+require '../../header.php';
+?>
+
+<?php
+$sql = $pdo->prepare('update product set name=?,price=? where id=?');
+if (empty($_REQUEST['name'])) {
+  echo '商品名を入力してください';
+} else if (!preg_match('/^[0-9]+$/', $_REQUEST['price'])) {
+  echo '価格を整数でにゅうりょくしてくれw';
+}
+else if ($sql->execute([htmlspecialchars($_REQUEST['name']),$_REQUEST['price'],$_REQUEST['id'] ])) {
+  echo '更新2成功しました';
+} else {
+  echo '更新に失敗しました';}
+?>
+<?php
+require '../../footer.php';
+?>
+
